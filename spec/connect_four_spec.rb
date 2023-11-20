@@ -30,3 +30,7 @@ describe Board do
     end
   end
 end
+
+describe Game do
+
+end
