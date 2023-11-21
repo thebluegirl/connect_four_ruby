@@ -28,34 +28,51 @@ class Board
 
   def print_board
     @cells.each do |cell|
-      print '|__|' if cell.first == 1
+      if cell.first == 6
+        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+      end
     end
     puts
 
     @cells.each do |cell|
-      print '|__|' if cell.first == 2
+      if cell.first == 5
+        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+      end
     end
     puts
 
     @cells.each do |cell|
-      print '|__|' if cell.first == 3
+      if cell.first == 4
+        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+      end
     end
     puts
 
     @cells.each do |cell|
-      print '|__|' if cell.first == 4
+      if cell.first == 3
+        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+      end
     end
     puts
 
     @cells.each do |cell|
-      print '|__|' if cell.first == 5
+      if cell.first == 2
+        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+      end
     end
     puts
 
     @cells.each do |cell|
-      print '|__|' if cell.first == 6
+      if cell.first == 1
+        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+      end
     end
     puts
+  end
+
+  def fill_cell(cell, symbol)
+    index = @cells.index(cell)
+    @cells[index] << symbol
   end
 
   # protected

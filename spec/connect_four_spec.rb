@@ -30,5 +30,13 @@ describe Board do
     end
   end
 
-  
+  describe '#fill_cell' do
+    subject(:board) { described_class.new }
+    it 'finds and fills a cell' do
+      cell = [1, 1]
+      symbol = "\u26be"
+      cells = board.instance_variable_get(:@cells)
+      expect{board.fill_cell(cell, symbol)}.to change{ cells.first.count }.by(1)
+    end
+  end
 end
