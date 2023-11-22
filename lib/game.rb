@@ -1,4 +1,5 @@
-require_relative 'connect_four.rb'
+require_relative 'player.rb'
+require_relative 'board.rb'
 
 class Game
   def initialize
@@ -16,7 +17,7 @@ class Game
     end
   end
 
-  def token_drop
+  def locate_token_drop
     column = column_request
     columns_cells = @board.cells.select do |cell|
       cell.last == column

@@ -1,7 +1,7 @@
-require './lib/gameplay'
+require './lib/game'
 
 describe Game do
-  describe '#token_drop' do
+  describe '#locate_token_drop' do
     subject(:game) { described_class.new }
     context 'when a valid column is selected' do
       before do
@@ -9,7 +9,7 @@ describe Game do
       end
 
       it 'returns the first available cell in the column' do
-        expect(game.token_drop).to eql([1, 1])
+        expect(game.locate_token_drop).to eql([1, 1])
       end
     end
   end

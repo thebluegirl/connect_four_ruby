@@ -1,8 +1,4 @@
-require './lib/connect_four'
-
-describe Player do
-
-end
+require './lib/board'
 
 describe Board do
   describe '#create_cells' do
