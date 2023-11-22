@@ -15,5 +15,13 @@ class Game
       column_request
     end
   end
-end
 
+  def token_drop
+    column = column_request
+    columns_cells = @board.cells.select do |cell|
+      cell.last == column
+    end
+    columns_cells.sort
+    return columns_cells.first
+  end
+end

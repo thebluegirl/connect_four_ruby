@@ -77,5 +77,5 @@ class Board
 
   # protected
 
-  attr_reader :rows, :columns
+  attr_reader :rows, :columns, :cells
 end
