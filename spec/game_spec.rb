@@ -13,4 +13,8 @@ describe Game do
       end
     end
   end
+
+  describe '#drop_token' do
+    
+  end
 end
