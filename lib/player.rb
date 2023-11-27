@@ -11,6 +11,13 @@ class Player
     @slots_played << cell
   end
 
+  def winner?
+    return true if row_win?
+    return true if column_win?
+    return true if diagonal_win?
+    return false
+  end
+
   def row_win?
     1..6.times do |num|
       row =

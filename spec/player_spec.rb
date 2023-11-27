@@ -157,4 +157,48 @@ describe Player do
       it { is_expected.not_to be_diagonal_win }
     end
   end
+
+  describe 'winner?' do
+    subject(:player) { described_class.new('Player', "\u26be") }
+    context 'when there is a winning move' do
+      it 'detects a row win' do
+        allow(player).to receive(:row_win?).and_return(true)
+        allow(player).to receive(:column_win?).and_return(false)
+        allow(player).to receive(:diagonal_win?).and_return(false)
+        expect(player.winner?).to be true
+      end
+
+      it 'detects a column win' do
+        allow(player).to receive(:row_win?).and_return(false)
+        allow(player).to receive(:column_win?).and_return(true)
+        allow(player).to receive(:diagonal_win?).and_return(false)
+        expect(player.winner?).to be true
+      end
+
+      it 'detects a diagonal win' do
+        allow(player).to receive(:row_win?).and_return(false)
+        allow(player).to receive(:column_win?).and_return(false)
+        allow(player).to receive(:diagonal_win?).and_return(true)
+        expect(player.winner?).to be true
+      end
+    end
+
+    context 'when multiple winning moves are played' do
+      it 'detects that the player is the winner' do
+        allow(player).to receive(:row_win?).and_return(false)
+        allow(player).to receive(:column_win?).and_return(true)
+        allow(player).to receive(:diagonal_win?).and_return(true)
+        expect(player.winner?).to be true
+      end
+    end
+
+    context 'when no winning moves have been played' do
+      it 'returns false' do
+        allow(player).to receive(:row_win?).and_return(false)
+        allow(player).to receive(:column_win?).and_return(false)
+        allow(player).to receive(:diagonal_win?).and_return(false)
+        expect(player.winner?).to be false
+      end
+    end
+  end
 end
