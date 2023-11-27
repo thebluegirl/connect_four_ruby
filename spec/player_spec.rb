@@ -36,7 +36,7 @@ describe Player do
         cells.each { |cell| slots_played << cell }
       end
 
-      it {is_expected.to be_row_win}
+      it { is_expected.to be_row_win }
     end
 
     context 'when player has not played up to four on any row' do
@@ -60,7 +60,7 @@ describe Player do
     end
 
     context 'when player has not played in any row' do
-      it {is_expected.not_to be_row_win}
+      it { is_expected.not_to be_row_win }
     end
   end
 
@@ -73,7 +73,7 @@ describe Player do
         cells.each { |cell| slots_played << cell }
       end
 
-      it {is_expected.to be_column_win}
+      it { is_expected.to be_column_win }
     end
 
     context 'when player plays more than four in a column' do
@@ -83,7 +83,7 @@ describe Player do
         cells.each { |cell| slots_played << cell }
       end
 
-      it {is_expected.to be_column_win}
+      it { is_expected.to be_column_win }
     end
 
     context 'when a player has not played up to four on any column' do
@@ -93,7 +93,7 @@ describe Player do
         cells.each { |cell| slots_played << cell }
       end
 
-      it {is_expected.not_to be_column_win}
+      it { is_expected.not_to be_column_win }
     end
 
     context 'when a player has not played up to four in a column consequtively' do
@@ -108,6 +108,53 @@ describe Player do
 
     context 'when a player has not played any moves' do
       it { is_expected.not_to be_column_win }
+    end
+  end
+
+  describe '#diagonal_win?' do
+    subject(:player) { described_class.new('Player', "\u26be") }
+    context 'when a player plays four in a diagonal' do
+      before do
+        slots_played = player.instance_variable_get(:@slots_played)
+        cells = [[1, 1], [2, 2], [3, 3], [4, 4]]
+        cells.each { |cell| slots_played << cell }
+      end
+
+      it { is_expected.to be_diagonal_win }
+    end
+
+    context 'when a player plays more than four in a diagonal' do
+      before do
+        slots_played = player.instance_variable_get(:@slots_played)
+        cells = [[2, 1], [3, 2], [4, 3], [5, 4], [6, 5]]
+        cells.each { |cell| slots_played << cell }
+      end
+
+      it { is_expected.to be_diagonal_win }
+    end
+
+    context 'when a player has not played up to four in any diagonal' do
+      before do
+        slots_played = player.instance_variable_get(:@slots_played)
+        cells = [[1, 1], [2, 2], [3, 3], [2, 1], [3, 2], [4, 3]]
+        cells.each { |cell| slots_played << cell }
+      end
+
+      it { is_expected.not_to be_diagonal_win }
+    end
+
+    context 'when a player has not played up to four in a diagonal consequtively' do
+      before do
+        slots_played = player.instance_variable_get(:@slots_played)
+        cells = [[1, 1], [2, 2], [3, 3], [6, 6], [2, 1], [3, 2], [4, 3], [6, 5]]
+        cells.each { |cell| slots_played << cell }
+      end
+
+      it { is_expected.not_to be_diagonal_win }
+    end
+
+    context 'when a player has not made any moves' do
+      it { is_expected.not_to be_diagonal_win }
     end
   end
 end
