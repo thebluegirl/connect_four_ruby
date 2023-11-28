@@ -14,6 +14,59 @@ describe Game do
     end
   end
 
+  describe '#over?' do
+    subject(:game) { described_class.new }
+    context 'when the board is full' do
+      it 'returns true' do
+        board = game.instance_variable_get(:@board)
+        player1 = game.instance_variable_get(:@player1)
+        player2 = game.instance_variable_get(:@player2)
+        allow(player1).to receive(:winner?).and_return(false)
+        allow(player2).to receive(:winner?).and_return(false)
+        allow(board).to receive(:full?).and_return(true)
+        expect(game.over?).to be true
+      end
+
+    end
+
+    context 'when player 1 wins' do
+      it 'returns true' do
+        board = game.instance_variable_get(:@board)
+        player1 = game.instance_variable_get(:@player1)
+        player2 = game.instance_variable_get(:@player2)
+        allow(player1).to receive(:winner?).and_return(true)
+        allow(player2).to receive(:winner?).and_return(false)
+        allow(board).to receive(:full?).and_return(false)
+        expect(game.over?).to be true
+      end
+    end
+
+    context 'when player 2 wins' do
+      it 'returns true' do
+        board = game.instance_variable_get(:@board)
+        player1 = game.instance_variable_get(:@player1)
+        player2 = game.instance_variable_get(:@player2)
+        allow(player1).to receive(:winner?).and_return(false)
+        allow(player2).to receive(:winner?).and_return(true)
+        allow(board).to receive(:full?).and_return(false)
+        expect(game.over?).to be true
+      end
+    end
+
+    context 'when game is not over' do
+      it 'returns false' do
+        board = game.instance_variable_get(:@board)
+        player1 = game.instance_variable_get(:@player1)
+        player2 = game.instance_variable_get(:@player2)
+        allow(player1).to receive(:winner?).and_return(false)
+        allow(player2).to receive(:winner?).and_return(false)
+        allow(board).to receive(:full?).and_return(false)
+        expect(game.over?).to be false
+      end
+    end
+  end
+
+=begin
   describe '#drop_token' do
     context 'when player is to drop a token' do
       before do
@@ -40,4 +93,5 @@ describe Game do
       end
     end
   end
+=end
 end

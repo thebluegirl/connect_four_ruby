@@ -25,4 +25,11 @@ class Game
     columns_cells.sort
     return columns_cells.first
   end
+
+  def over?
+    return true if @player1.winner?
+    return true if @player2.winner?
+    return true if @board.full?
+    false
+  end
 end

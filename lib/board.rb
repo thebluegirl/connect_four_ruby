@@ -73,6 +73,7 @@ class Board
     end
     true
   end
+  
   # protected
 
   attr_reader :rows, :columns, :cells
