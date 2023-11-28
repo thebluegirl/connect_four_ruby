@@ -67,6 +67,12 @@ class Board
     @cells[index] << symbol
   end
 
+  def full?
+    cells.each do |cell|
+      return false if cell.count < 3
+    end
+    true
+  end
   # protected
 
   attr_reader :rows, :columns, :cells

@@ -35,4 +35,34 @@ describe Board do
       expect{board.fill_cell(cell, symbol)}.to change{ cells.first.count }.by(1)
     end
   end
+
+  describe 'full?' do
+    subject(:board) { described_class.new }
+    context 'when all cells are full' do
+      before do
+        cells = board.instance_variable_get(:@cells)
+        cells.each_with_index do |cell, index|
+          index.even? ? (cell << "\u26be") : (cell << "\u26ab")
+        end
+      end
+
+      it {is_expected.to be_full}
+    end
+
+    context 'when some cells are full' do
+      before do
+        cells = board.instance_variable_get(:@cells)
+        cells.each_with_index do |cell, index|
+          cell << "\u26ab" if cell.first == 1
+          cell << "\u26be" if cell.first == 2
+        end
+      end
+      it {is_expected.not_to be_full}
+    end
+
+    context 'when all cells are empty' do
+      it {is_expected.not_to be_full}
+    end
+
+  end
 end
