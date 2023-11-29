@@ -32,7 +32,7 @@ describe Board do
       cell = [1, 1]
       symbol = "\u26be"
       cells = board.instance_variable_get(:@cells)
-      expect{board.fill_cell(cell, symbol)}.to change{ cells.first.count }.by(1)
+      expect { board.fill_cell(cell, symbol) }.to change { cells.first.count }.by(1)
     end
   end
 
@@ -46,7 +46,7 @@ describe Board do
         end
       end
 
-      it {is_expected.to be_full}
+      it { is_expected.to be_full }
     end
 
     context 'when some cells are full' do
@@ -57,12 +57,11 @@ describe Board do
           cell << "\u26be" if cell.first == 2
         end
       end
-      it {is_expected.not_to be_full}
+      it { is_expected.not_to be_full }
     end
 
     context 'when all cells are empty' do
-      it {is_expected.not_to be_full}
+      it { is_expected.not_to be_full }
     end
-
   end
 end

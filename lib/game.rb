@@ -1,5 +1,5 @@
-require_relative 'player.rb'
-require_relative 'board.rb'
+require_relative 'player'
+require_relative 'board'
 
 class Game
   def initialize
@@ -11,10 +11,10 @@ class Game
   def column_request
     puts 'What column would you like to play into?'
     column = gets.to_i
-    if column < 1 || column > 7
-      puts 'This is not a valid column. Please choose a valid column.'
-      column_request
-    end
+    return column unless column < 1 || column > 7
+
+    puts 'This is not a valid column. Please choose a valid column.'
+    column_request
   end
 
   def locate_token_drop
@@ -23,13 +23,21 @@ class Game
       cell.last == column
     end
     columns_cells.sort
-    return columns_cells.first
+    columns_cells.first
   end
 
   def over?
     return true if @player1.winner?
     return true if @player2.winner?
     return true if @board.full?
+
     false
+  end
+
+  def player_turn(player)
+    puts "#{player.player}'s turn..."
+    cell = locate_token_drop
+    @board.fill_cell(cell, player.symbol)
+    player.add_slot(cell)
   end
 end

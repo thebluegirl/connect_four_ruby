@@ -15,7 +15,7 @@ class Board
         cells << cell
       end
     end
-    return cells
+    cells
   end
 
   def print_board
@@ -73,7 +73,7 @@ class Board
     end
     true
   end
-  
+
   # protected
 
   attr_reader :rows, :columns, :cells
