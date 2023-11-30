@@ -19,46 +19,25 @@ class Board
   end
 
   def print_board
-    @cells.each do |cell|
-      if cell.first == 6
-        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+    print_row = lambda do |num|
+      @cells.each do |cell|
+        if cell.first == num
+          cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
+        end
       end
     end
-    puts
 
-    @cells.each do |cell|
-      if cell.first == 5
-        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
-      end
-    end
+    print_row.call(6)
     puts
-
-    @cells.each do |cell|
-      if cell.first == 4
-        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
-      end
-    end
+    print_row.call(5)
     puts
-
-    @cells.each do |cell|
-      if cell.first == 3
-        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
-      end
-    end
+    print_row.call(4)
     puts
-
-    @cells.each do |cell|
-      if cell.first == 2
-        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
-      end
-    end
+    print_row.call(3)
     puts
-
-    @cells.each do |cell|
-      if cell.first == 1
-        cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
-      end
-    end
+    print_row.call(2)
+    puts
+    print_row.call(1)
     puts
   end
 

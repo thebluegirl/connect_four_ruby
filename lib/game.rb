@@ -47,4 +47,5 @@ class Game
     puts "#{@player2.player} wins!!!" if @player2.winner?
     puts "It's a tie. You both win!" if @board.full? && !@player1.winner? && !@player2.winner?
   end
+
 end
