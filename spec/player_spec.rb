@@ -2,7 +2,7 @@ require './lib/player'
 
 describe Player do
   describe '#add_slot' do
-    subject(:player) { described_class.new('Player', "\u26be") }
+    subject(:player) { described_class.new('Player', '⚪') }
     it 'increases the number of slots played' do
       players_slots = player.instance_variable_get(:@slots_played)
       cell = [1, 1]
@@ -18,7 +18,7 @@ describe Player do
   end
 
   describe '#row_win?' do
-    subject(:player) { described_class.new('Player', "\u26be") }
+    subject(:player) { described_class.new('Player', '⚪') }
     context 'when player has played four in a row' do
       before do
         slots_played = player.instance_variable_get(:@slots_played)
@@ -65,7 +65,7 @@ describe Player do
   end
 
   describe '#column_win?' do
-    subject(:player) { described_class.new('Player', "\u26ab") }
+    subject(:player) { described_class.new('Player', '⚪') }
     context 'when player plays four in a column' do
       before do
         slots_played = player.instance_variable_get(:@slots_played)
@@ -112,7 +112,7 @@ describe Player do
   end
 
   describe '#diagonal_win?' do
-    subject(:player) { described_class.new('Player', "\u26be") }
+    subject(:player) { described_class.new('Player', '⚪') }
     context 'when a player plays four in a diagonal' do
       before do
         slots_played = player.instance_variable_get(:@slots_played)
@@ -159,25 +159,20 @@ describe Player do
   end
 
   describe 'winner?' do
-    subject(:player) { described_class.new('Player', "\u26be") }
+    subject(:player) { described_class.new('Player', '⚪') }
     context 'when there is a winning move' do
       it 'detects a row win' do
         allow(player).to receive(:row_win?).and_return(true)
-        allow(player).to receive(:column_win?).and_return(false)
-        allow(player).to receive(:diagonal_win?).and_return(false)
         expect(player.winner?).to be true
       end
 
       it 'detects a column win' do
-        allow(player).to receive(:row_win?).and_return(false)
         allow(player).to receive(:column_win?).and_return(true)
-        allow(player).to receive(:diagonal_win?).and_return(false)
         expect(player.winner?).to be true
       end
 
       it 'detects a diagonal win' do
-        allow(player).to receive(:row_win?).and_return(false)
-        allow(player).to receive(:column_win?).and_return(false)
+
         allow(player).to receive(:diagonal_win?).and_return(true)
         expect(player.winner?).to be true
       end
