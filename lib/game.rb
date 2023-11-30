@@ -3,8 +3,8 @@ require_relative 'board'
 
 class Game
   def initialize
-    @player1 = Player.new('Player 1', "\u26be")
-    @player2 = Player.new('Player 2', "\u26ab")
+    @player1 = Player.new('Player 1', "⚪")
+    @player2 = Player.new('Player 2', "⚫")
     @board = Board.new
   end
 
@@ -39,5 +39,12 @@ class Game
     cell = locate_token_drop
     @board.fill_cell(cell, player.symbol)
     player.add_slot(cell)
+    @board.print_board
+  end
+
+  def end_message
+    puts "#{@player1.player} wins!!!" if @player1.winner?
+    puts "#{@player2.player} wins!!!" if @player2.winner?
+    puts "It's a tie. You both win!" if @board.full? && !@player1.winner? && !@player2.winner?
   end
 end
