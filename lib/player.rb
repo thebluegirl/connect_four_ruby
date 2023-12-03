@@ -21,53 +21,44 @@ class Player
   end
 
   def row_win?
-    1..6.times do |num|
-      row =
-        @slots_played.filter do |cell|
-          cell.first == num
-        end.sort
-      next if row.count < 4
+    horizontal_cells = lambda do |cell|
+      [[cell[0], cell[1] + 1], [cell[0], cell[1] + 2], [cell[0], cell[1] + 3]]
+    end
 
-      columns = []
-      row.each { |cell| columns << cell.last }
-
-      in_sequence = lambda do |array, columns|
-        array.each do |number|
-          return false unless columns.include?(number)
-        end
-        true
+    cell_check = lambda do |array|
+      array.each do |cell|
+        return false if !@slots_played.include?(cell)
       end
 
-      return true if in_sequence.call([1, 2, 3, 4], columns)
-      return true if in_sequence.call([2, 3, 4, 5], columns)
-      return true if in_sequence.call([3, 4, 5, 6], columns)
-      return true if in_sequence.call([4, 5, 6, 7], columns)
+      true
     end
+
+    @slots_played.each do |cell|
+      horizontal_array = horizontal_cells.call(cell)
+      cell_check.call(horizontal_array) ? (return true) : next
+    end
+
     false
   end
 
   def column_win?
-    1..7.times do |num|
-      column =
-        @slots_played.filter do |cell|
-          cell.last == num
-        end.sort
-      next if column.count < 4
+    vertical_cells = lambda do |cell|
+      [[cell[0] + 1, cell[1]], [cell[0] + 2, cell[1]], [cell[0]+ 3, cell[1]]]
+    end
 
-      rows = []
-      column.each { |cell| rows << cell.first }
-
-      in_sequence = lambda do |array, rows|
-        array.each do |number|
-          return false unless rows.include?(number)
-        end
-        true
+    cell_check = lambda do |array|
+      array.each do |cell|
+        return false if !@slots_played.include?(cell)
       end
 
-      return true if in_sequence.call([1, 2, 3, 4], rows)
-      return true if in_sequence.call([2, 3, 4, 5], rows)
-      return true if in_sequence.call([3, 4, 5, 6], rows)
+      true
     end
+
+    @slots_played.each do |cell|
+      vertical_array = vertical_cells.call(cell)
+      cell_check.call(vertical_array) ? (return true) : next
+    end
+
     false
   end
 
@@ -76,13 +67,17 @@ class Player
       [[cell[0] + 1, cell[1] + 1], [cell[0] + 2, cell[1] + 2], [cell[0] + 3, cell[1] + 3]]
     end
 
+    cell_check = lambda do |array|
+      array.each do |cell|
+        return false if !@slots_played.include?(cell)
+      end
+
+      true
+    end
+
     @slots_played.each do |cell|
       diagonal_array = diagonal_cells.call(cell)
-      if @slots_played.include?(diagonal_array[0]) && @slots_played.include?(diagonal_array[1]) && @slots_played.include?(diagonal_array[2])
-        return true
-      else
-        next
-      end
+      cell_check.call(diagonal_array) ? (return true) : next
     end
     false
   end

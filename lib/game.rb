@@ -24,8 +24,7 @@ class Game
     end
     if columns_cells.empty?
       puts 'This column is full. Please choose another.'
-      locate_token_drop
-      return
+      return locate_token_drop
     end
     columns_cells.sort
     columns_cells.first
@@ -50,6 +49,15 @@ class Game
   def end_message
     puts "#{@player1.player} wins!!!" if @player1.winner?
     puts "#{@player2.player} wins!!!" if @player2.winner?
-    puts "It's a tie. You both win!" if @board.full? && !@player1.winner? && !@player2.winner?
+    puts "It's a tie. You both win!" if @board.full? && (!@player1.winner? && !@player2.winner?)
+  end
+
+  def play
+    @board.print_board
+    until over?
+      player_turn(@player1)
+      player_turn(@player2) unless over?
+    end
+    end_message
   end
 end

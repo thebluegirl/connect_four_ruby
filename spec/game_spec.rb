@@ -30,6 +30,10 @@ describe Game do
         expect(game).to receive(:puts).with('This column is full. Please choose another.').once
         game.locate_token_drop
       end
+
+      it 'returns the first empty cell in the non-empty column' do
+        expect(game.locate_token_drop).to eql([1, 1])
+      end
     end
   end
 
