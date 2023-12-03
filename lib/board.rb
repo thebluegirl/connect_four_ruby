@@ -25,20 +25,15 @@ class Board
           cell.count > 2 ? (print "|#{cell[2]}|") : (print '|__|')
         end
       end
+      puts
     end
 
     print_row.call(6)
-    puts
     print_row.call(5)
-    puts
     print_row.call(4)
-    puts
     print_row.call(3)
-    puts
     print_row.call(2)
-    puts
     print_row.call(1)
-    puts
   end
 
   def fill_cell(cell, symbol)

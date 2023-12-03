@@ -22,6 +22,11 @@ class Game
     columns_cells = @board.cells.select do |cell|
       cell.last == column
     end
+    if columns_cells.empty?
+      puts 'This column is full. Please choose another.'
+      locate_token_drop
+      return
+    end
     columns_cells.sort
     columns_cells.first
   end
@@ -47,5 +52,4 @@ class Game
     puts "#{@player2.player} wins!!!" if @player2.winner?
     puts "It's a tie. You both win!" if @board.full? && !@player1.winner? && !@player2.winner?
   end
-
 end

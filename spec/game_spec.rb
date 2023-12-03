@@ -12,6 +12,25 @@ describe Game do
         expect(game.locate_token_drop).to eql([1, 1])
       end
     end
+
+    context 'when a valid but full column is selected' do
+      before do
+        board = game.instance_variable_get(:@board)
+        cells = board.instance_variable_get(:@cells)
+        cells.each { |cell| cell << '⚪' if cell.last == 7 }
+        allow(game).to receive(:column_request).and_return(7, 1)
+      end
+
+      it 'receives request for a column twice' do
+        expect(game).to receive(:column_request).twice
+        game.locate_token_drop
+      end
+
+      it 'puts full column feedback' do
+        expect(game).to receive(:puts).with('This column is full. Please choose another.').once
+        game.locate_token_drop
+      end
+    end
   end
 
   describe '#over?' do
