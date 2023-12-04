@@ -9,7 +9,8 @@ class Player
   end
 
   def add_slot(cell)
-    @slots_played << cell
+    unmodified_cell_copy = [cell[0], cell[1]]
+    @slots_played << unmodified_cell_copy
   end
 
   def winner?
@@ -27,7 +28,7 @@ class Player
 
     cell_check = lambda do |array|
       array.each do |cell|
-        return false if !@slots_played.include?(cell)
+        return false unless @slots_played.include?(cell)
       end
 
       true
@@ -43,12 +44,12 @@ class Player
 
   def column_win?
     vertical_cells = lambda do |cell|
-      [[cell[0] + 1, cell[1]], [cell[0] + 2, cell[1]], [cell[0]+ 3, cell[1]]]
+      [[cell[0] + 1, cell[1]], [cell[0] + 2, cell[1]], [cell[0] + 3, cell[1]]]
     end
 
     cell_check = lambda do |array|
       array.each do |cell|
-        return false if !@slots_played.include?(cell)
+        return false unless @slots_played.include?(cell)
       end
 
       true
@@ -69,7 +70,7 @@ class Player
 
     cell_check = lambda do |array|
       array.each do |cell|
-        return false if !@slots_played.include?(cell)
+        return false unless @slots_played.include?(cell)
       end
 
       true

@@ -26,8 +26,7 @@ class Game
       puts 'This column is full. Please choose another.'
       return locate_token_drop
     end
-    columns_cells.sort
-    columns_cells.first
+    columns_cells.sort.first
   end
 
   def over?
@@ -41,8 +40,8 @@ class Game
   def player_turn(player)
     puts "#{player.player}'s turn..."
     cell = locate_token_drop
-    @board.fill_cell(cell, player.symbol)
     player.add_slot(cell)
+    @board.fill_cell(cell, player.symbol)
     @board.print_board
   end
 
