@@ -51,6 +51,19 @@ class Game
     puts "It's a tie. You both win!" if @board.full? && (!@player1.winner? && !@player2.winner?)
   end
 
+  def request_another_game
+    puts 'Would you like to play another game?'
+    response = gets.chomp.downcase
+    if response == 'yes' || response == 'y'
+      Game.new.play
+    elsif response == 'no' || response == 'n'
+      return
+    else
+      puts "This is not a valid response. Please enter 'no', 'yes', or the first letter of either of the two."
+      request_another_game
+    end
+  end
+
   def play
     @board.print_board
     until over?
@@ -58,5 +71,6 @@ class Game
       player_turn(@player2) unless over?
     end
     end_message
+    request_another_game
   end
 end
